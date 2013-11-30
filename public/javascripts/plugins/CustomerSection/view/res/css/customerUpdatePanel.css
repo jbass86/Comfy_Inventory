@@ -1,0 +1,26 @@
+.customerUpdatePanel {
+	
+	/*background: -moz-linear-gradient(top, rgb(0, 0, 99), rgb(0, 0, 33));*/
+	/*background: -moz-radial-gradient(#777, #333);*/
+	background: DarkSlateGray;
+	
+	position: absolute;
+	top: 10%;
+	left: 30%;
+
+	width: 20%;
+	height: 65%;
+	
+	z-index: 7;
+	
+	color: white;
+}
+
+.customerUpdatePanel .infoPanel{
+	padding-top: 50px;
+}
+
+.customerUpdatePanel span{
+	padding-top: 5px;
+	width: 20%;
+}
