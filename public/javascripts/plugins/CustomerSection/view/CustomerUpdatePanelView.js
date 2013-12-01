@@ -8,6 +8,11 @@ define(["vendor/backbone", "plugins/CustomerSection/view/Templates", "css!plugin
   return Backbone.View.extend({
     className: "customerUpdatePanel pressedborder box_shadow",
     id: "draggable",
+    events: {
+      "click .closeButton": "closePanel",
+      "click .cancelButton": "closePanel",
+      "click .updateButton": "updateCustomer"
+    },
     initialize: function(model) {},
     /*
     		Create the Dialog and return its element
@@ -34,6 +39,9 @@ define(["vendor/backbone", "plugins/CustomerSection/view/Templates", "css!plugin
         }
       }
     },
+    closePanel: function() {
+      return this.toggleHidden(false, true);
+    },
     /*
     		Called after Dialog has been appended, this will set up the prog search
     		list with all known searches
@@ -45,6 +53,26 @@ define(["vendor/backbone", "plugins/CustomerSection/view/Templates", "css!plugin
       console.log(this.$el.find(".updateButton"));
       this.$el.find(".updateButton").button();
       return this.$el.find(".cancelButton").button();
+    },
+    updateCustomer: function() {
+      var update,
+        _this = this;
+      console.log(this.$el.find(".firstNameArea").val());
+      update = {
+        first_name: this.$el.find(".firstNameArea").val(),
+        last_name: this.$el.find(".lastNameArea").val(),
+        nick_name: this.$el.find(".nickNameArea").val(),
+        email: this.$el.find(".emailArea").val(),
+        country: this.$el.find(".countryArea").val(),
+        birthday: this.$el.find(".birthdayArea").val()
+      };
+      console.log("update to send to server");
+      console.log(update);
+      $.post("update_user", update, function(data) {
+        console.log("updated user");
+        return console.log(data);
+      });
+      return this.toggleHidden(false, true);
     }
   });
 });

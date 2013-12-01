@@ -8,7 +8,9 @@ define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelMod
   return Backbone.View.extend({
     className: "customerSection",
     events: {
-      "click .insertCustomerButton": "insertCustomerEvent"
+      "click .insertCustomerButton": "insertCustomerEvent",
+      "click .customerTable .editButton": "customerTableEdit",
+      "click .customerTable .deleteButton": "customerTableDelete"
     },
     initialize: function(model) {
       console.log("I am the customer section!!!");
@@ -24,7 +26,7 @@ define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelMod
 
     render: function() {
       var elem;
-      this.$el.html(Templates.customerSection());
+      this.$el.html(Templates.customerSection({}));
       elem = this.customerUpdateView.render();
       this.$el.find(".contentDiv").append(elem);
       elem.draggable();
@@ -39,25 +41,41 @@ define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelMod
     */
 
     realized: function() {
+      var _this = this;
       this.customerUpdateView.realized();
-      return this.populateTable();
+      this.populateTable();
+      return window.setInterval(function() {
+        return _this.populateTable();
+      }, 10000);
     },
     populateTable: function() {
       var _this = this;
       return $.get("users_by_last_name", {}, function(data) {
         var row, table, _i, _len, _ref, _results;
         table = _this.$el.find(".customerTable table");
+        table.html("");
         _ref = data.rows;
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           row = _ref[_i];
-          _results.push(table.append("<tr>" + "<td>" + row.value.last_name + "</td>" + "<td>" + row.value.first_name + "</td>" + "<td>" + row.value.nick_name + "</td>" + "<td>" + row.value.email + "</td>" + "<td>" + row.value.country + "</td>" + "<td>" + row.value.birthday + "</td>" + "<td> <button>" + "Edit" + "</button> </td>" + "<td> <button>" + "Delete" + "</button> </td>" + "</tr>"));
+          console.log("wowow");
+          _results.push(table.append(Templates.customerRowTemplate(row.value)));
         }
         return _results;
       });
     },
-    insertCustomerEvent: function() {
-      return this.customerUpdateView.toggleHidden(true, true);
+    customerTableEdit: function(event) {
+      return console.log("customer table edit");
+    },
+    customerTableDelete: function(event) {
+      return console.log("customer table delete");
+    },
+    insertCustomerEvent: function(event) {
+      var _this = this;
+      this.customerUpdateView.toggleHidden(true, true);
+      return window.setTimeout(function() {
+        return _this.populateTable();
+      }, 2000);
     }
   });
 });

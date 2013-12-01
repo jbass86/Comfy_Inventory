@@ -13,7 +13,9 @@ define(["vendor/backbone",
 	Backbone.View.extend(
 		className: "customerSection",
 
-		events: {"click .insertCustomerButton" : "insertCustomerEvent"},
+		events: {"click .insertCustomerButton" : "insertCustomerEvent", \
+				 "click .customerTable .editButton" : "customerTableEdit", \
+				 "click .customerTable .deleteButton" : "customerTableDelete"},
 
 		
 		initialize: (model) ->
@@ -30,7 +32,7 @@ define(["vendor/backbone",
 		###
 		render: () ->
 
-			@$el.html(Templates.customerSection());
+			@$el.html(Templates.customerSection({}));
 
 			elem = @customerUpdateView.render();
 			@$el.find(".contentDiv").append(elem);
@@ -49,27 +51,33 @@ define(["vendor/backbone",
 
 			@customerUpdateView.realized();
 			@populateTable();
+
+			window.setInterval(() =>
+				@populateTable();
+			10000);
 			
 		populateTable: () ->
 
 			$.get("users_by_last_name", {}, (data) =>
 
 				table = @$el.find(".customerTable table");
+				table.html("");
 				for row in data.rows
-					table.append("<tr>" +  \ 
-						"<td>" + row.value.last_name + "</td>" + \
-						"<td>" + row.value.first_name + "</td>" + \
-						"<td>" + row.value.nick_name + "</td>" + \
-						"<td>" + row.value.email + "</td>" + \
-						"<td>" + row.value.country + "</td>" + \
-						"<td>" + row.value.birthday + "</td>" + \
-						"<td> <button>" + "Edit" + "</button> </td>" + \
-						"<td> <button>" + "Delete" + "</button> </td>" + \
-						"</tr>");		
+					console.log("wowow");
+					table.append(Templates.customerRowTemplate(row.value));
 			);
 
-		insertCustomerEvent: () ->
+		customerTableEdit: (event) ->
+			console.log("customer table edit");
 
-			@customerUpdateView.toggleHidden(true, true);	
+		customerTableDelete: (event) ->
+			console.log("customer table delete");
+
+		insertCustomerEvent: (event) ->
+
+			@customerUpdateView.toggleHidden(true, true);
+			window.setTimeout(() =>
+				@populateTable();
+			2000);	
 	)
 )

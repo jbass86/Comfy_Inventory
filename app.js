@@ -125,6 +125,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/users_by_last_name', user.users_by_last_name);
+app.post('/update_user', user.update_user);
 //app.get('/inventory', routes.inventory);
 
 http.createServer(app).listen(app.get('port'), function(){
