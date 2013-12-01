@@ -54,6 +54,10 @@ define(["vendor/backbone",
 		###
 		realized: () ->
 
-			@$el.find(".birthdayArea").datepicker();			
+			@$el.find(".birthdayArea").datepicker();	
+
+			console.log(@$el.find(".updateButton"));
+			@$el.find(".updateButton").button();
+			@$el.find(".cancelButton").button();		
 	)
 )

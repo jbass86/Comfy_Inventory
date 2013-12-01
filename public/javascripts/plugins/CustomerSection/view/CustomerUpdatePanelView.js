@@ -41,7 +41,10 @@ define(["vendor/backbone", "plugins/CustomerSection/view/Templates", "css!plugin
     */
 
     realized: function() {
-      return this.$el.find(".birthdayArea").datepicker();
+      this.$el.find(".birthdayArea").datepicker();
+      console.log(this.$el.find(".updateButton"));
+      this.$el.find(".updateButton").button();
+      return this.$el.find(".cancelButton").button();
     }
   });
 });

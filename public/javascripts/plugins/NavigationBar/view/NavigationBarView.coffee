@@ -53,10 +53,12 @@ define(["vendor/backbone",
 			@navBarExpanded = !@navBarExpanded;
 			if (@navBarExpanded)
 				@$el.css("width", "15%");
+				@currentView.$el.css("width", "85%");
 				@$el.find(".navBarLabel").css("display", "");
 				@$el.find(".section").css("display", "")
 			else
 				@$el.css("width", "1%");
+				@currentView.$el.css("width", "99%");
 				@$el.find(".navBarLabel").css("display", "none");
 				@$el.find(".section").css("display", "none");
 	)

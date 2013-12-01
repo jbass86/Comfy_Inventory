@@ -18,6 +18,8 @@
 		left top,
 		color-stop(0.06, rgb(4,18,54)),
 		color-stop(0.63, rgb(99,111,122))*/
+	transition: width 2s;
+	-webkit-transition: width 2s;
 			
 }
 

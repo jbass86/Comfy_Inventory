@@ -43,10 +43,12 @@ define(["vendor/backbone", "plugins/CustomerSection/model/CustomerSectionModel",
       this.navBarExpanded = !this.navBarExpanded;
       if (this.navBarExpanded) {
         this.$el.css("width", "15%");
+        this.currentView.$el.css("width", "85%");
         this.$el.find(".navBarLabel").css("display", "");
         return this.$el.find(".section").css("display", "");
       } else {
         this.$el.css("width", "1%");
+        this.currentView.$el.css("width", "99%");
         this.$el.find(".navBarLabel").css("display", "none");
         return this.$el.find(".section").css("display", "none");
       }
