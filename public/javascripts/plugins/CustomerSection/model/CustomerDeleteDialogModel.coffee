@@ -6,7 +6,7 @@ define(["vendor/backbone"]
 
 (Backbone, Math2) ->
 
-	customerUpdatePanelModel = Backbone.Model.extend(
+	customerDeleteDialogModel = Backbone.Model.extend(
 
 
 		###*
@@ -16,7 +16,6 @@ define(["vendor/backbone"]
 		*
 		*###
 		initialize: (options) ->
-			@set("customerViewModel", options.customerViewModel);
 
 	);
 

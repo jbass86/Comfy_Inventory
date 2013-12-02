@@ -1,0 +1,15 @@
+.customerDeleteDialog{
+
+	width: 200px;
+	height: 200px;
+}
+
+.customerDeleteDialog span{
+	text-align: center;
+}
+
+.customerDeleteDialog .buttonPanel{
+
+	padding-top: 20px;
+	text-align: center;
+}

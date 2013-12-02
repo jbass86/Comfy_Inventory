@@ -5,12 +5,16 @@ CustomerSectionBarView
 define(["vendor/backbone",
 		"plugins/CustomerSection/model/CustomerUpdatePanelModel",
 		"plugins/CustomerSection/view/CustomerUpdatePanelView",
+		"plugins/CustomerSection/model/CustomerDeleteDialogModel",
+		"plugins/CustomerSection/view/CustomerDeleteDialogView",
 		"plugins/CustomerSection/view/Templates",
 		'css!plugins/CustomerSection/view/res/css/customerSection.css'],
 
-(Backbone, CustomerUpdatePanelModel, CustomerUpdatePanelView, Templates, CSS) ->
+(Backbone, CustomerUpdatePanelModel, CustomerUpdatePanelView, 
+	CustomerDeleteDialogModel, CustomerDeleteDialogView, Templates, CSS) ->
 
 	Backbone.View.extend(
+
 		className: "customerSection",
 
 		events: {"click .insertCustomerButton" : "insertCustomerEvent", \
@@ -22,9 +26,17 @@ define(["vendor/backbone",
 
 			console.log("I am the customer section!!!")
 
-			@customerUpdateModel = new CustomerUpdatePanelModel();
+			@customerUpdateModel = new CustomerUpdatePanelModel({customerViewModel: @model});
 			@customerUpdateView = new CustomerUpdatePanelView({model: @customerUpdateModel});
 
+			@customerDeleteDialogModel = new CustomerDeleteDialogModel();
+			@customerDeleteDialogView = new CustomerDeleteDialogView({model: @customerDeleteDialogModel});
+
+			@model.on("change:customerEvent", ()=>
+				window.setTimeout(() =>
+					@populateTable();
+				5000);
+			);
 
 		###
 		Create the Dialog and return its element
@@ -40,6 +52,9 @@ define(["vendor/backbone",
 			elem.css("position", "absolute");
 			@customerUpdateView.toggleHidden(false);
 
+			elem = @customerDeleteDialogView.render();
+			@$el.find(".contentDiv").append(elem);
+
 			return @$el
 
 		###
@@ -49,35 +64,65 @@ define(["vendor/backbone",
 		###
 		realized: () ->
 
+			@$el.find(".customerInsertPanel .insertCustomerButton").button();
 			@customerUpdateView.realized();
+			@customerDeleteDialogView.realized();
+			
 			@populateTable();
 
 			window.setInterval(() =>
 				@populateTable();
-			10000);
+			20000);
 			
 		populateTable: () ->
 
 			$.get("users_by_last_name", {}, (data) =>
 
 				table = @$el.find(".customerTable table");
+				header = @$el.find(".customerTable table tr")[0];
 				table.html("");
-				for row in data.rows
-					console.log("wowow");
-					table.append(Templates.customerRowTemplate(row.value));
+				table.append(header);
+				for row in data.rows	
+					table.append(Templates.customerRowTemplate(row.value));	
+
+				@$el.find(".customerTable table button").button();
 			);
 
 		customerTableEdit: (event) ->
 			console.log("customer table edit");
+			dataset = $(event.currentTarget)[0].dataset;
+			@customerUpdateModel.set("first_name", dataset.first_name);
+			@customerUpdateModel.set("last_name", dataset.last_name);
+			@customerUpdateModel.set("nick_name", dataset.nick_name);
+			@customerUpdateModel.set("email", dataset.email);
+			@customerUpdateModel.set("country", dataset.country);
+			@customerUpdateModel.set("birthday", dataset.birthday);
+			@customerUpdateModel.set("couchid", dataset.couchid);
+			@customerUpdateModel.set("couchrev", dataset.couchrev);
+			@customerUpdateView.toggleHidden(true, true);
 
 		customerTableDelete: (event) ->
 			console.log("customer table delete");
 
+			deleteAction = () =>
+				dataset = $(event.currentTarget)[0].dataset;
+				$.post("delete_user", {_id: dataset.couchid, _rev: dataset.couchrev});
+				@model.trigger("change:customerEvent");
+
+			@customerDeleteDialogView.confirmDelete(deleteAction);
+
+			
+
 		insertCustomerEvent: (event) ->
 
+			@customerUpdateModel.set("first_name", "");
+			@customerUpdateModel.set("last_name", "");
+			@customerUpdateModel.set("nick_name", "");
+			@customerUpdateModel.set("email", "");
+			@customerUpdateModel.set("country", "");
+			@customerUpdateModel.set("birthday", "");
+			@customerUpdateModel.set("couchid", "");
+			@customerUpdateModel.set("couchrev", "");
 			@customerUpdateView.toggleHidden(true, true);
-			window.setTimeout(() =>
-				@populateTable();
-			2000);	
 	)
 )

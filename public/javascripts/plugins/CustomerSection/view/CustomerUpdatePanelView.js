@@ -13,7 +13,27 @@ define(["vendor/backbone", "plugins/CustomerSection/view/Templates", "css!plugin
       "click .cancelButton": "closePanel",
       "click .updateButton": "updateCustomer"
     },
-    initialize: function(model) {},
+    initialize: function(model) {
+      var _this = this;
+      this.model.on("change:first_name", function() {
+        return _this.$el.find(".firstNameArea").val(_this.model.get("first_name"));
+      });
+      this.model.on("change:last_name", function() {
+        return _this.$el.find(".lastNameArea").val(_this.model.get("last_name"));
+      });
+      this.model.on("change:nick_name", function() {
+        return _this.$el.find(".nickNameArea").val(_this.model.get("nick_name"));
+      });
+      this.model.on("change:email", function() {
+        return _this.$el.find(".emailArea").val(_this.model.get("email"));
+      });
+      this.model.on("change:country", function() {
+        return _this.$el.find(".countryArea").val(_this.model.get("country"));
+      });
+      return this.model.on("change:birthday", function() {
+        return _this.$el.find(".birthdayArea").val(_this.model.get("birthday"));
+      });
+    },
     /*
     		Create the Dialog and return its element
     		@method render
@@ -40,7 +60,23 @@ define(["vendor/backbone", "plugins/CustomerSection/view/Templates", "css!plugin
       }
     },
     closePanel: function() {
-      return this.toggleHidden(false, true);
+      this.toggleHidden(false, true);
+      this.model.set("first_name", "");
+      this.model.trigger("change:first_name", "");
+      this.model.set("last_name", "");
+      this.model.trigger("change:last_name", "");
+      this.model.set("nick_name", "");
+      this.model.trigger("change:nick_name", "");
+      this.model.set("email", "");
+      this.model.trigger("change:email", "");
+      this.model.set("country", "");
+      this.model.trigger("change:country", "");
+      this.model.set("birthday", "");
+      this.model.trigger("change:birthday", "");
+      this.model.set("couchid", "");
+      this.model.trigger("change:couchid", "");
+      this.model.set("couchrev", "");
+      return this.model.trigger("change:couchrev", "");
     },
     /*
     		Called after Dialog has been appended, this will set up the prog search
@@ -50,29 +86,25 @@ define(["vendor/backbone", "plugins/CustomerSection/view/Templates", "css!plugin
 
     realized: function() {
       this.$el.find(".birthdayArea").datepicker();
-      console.log(this.$el.find(".updateButton"));
       this.$el.find(".updateButton").button();
       return this.$el.find(".cancelButton").button();
     },
     updateCustomer: function() {
-      var update,
-        _this = this;
-      console.log(this.$el.find(".firstNameArea").val());
+      var update;
       update = {
         first_name: this.$el.find(".firstNameArea").val(),
         last_name: this.$el.find(".lastNameArea").val(),
         nick_name: this.$el.find(".nickNameArea").val(),
         email: this.$el.find(".emailArea").val(),
         country: this.$el.find(".countryArea").val(),
-        birthday: this.$el.find(".birthdayArea").val()
+        birthday: this.$el.find(".birthdayArea").val(),
+        _id: this.model.get("couchid"),
+        _rev: this.model.get("couchrev")
       };
-      console.log("update to send to server");
-      console.log(update);
-      $.post("update_user", update, function(data) {
-        console.log("updated user");
-        return console.log(data);
-      });
-      return this.toggleHidden(false, true);
+      console.log("############################### I am inserting");
+      $.post("update_user", update);
+      this.closePanel();
+      return this.model.get("customerViewModel").trigger("change:customerEvent");
     }
   });
 });

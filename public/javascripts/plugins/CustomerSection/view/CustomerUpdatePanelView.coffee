@@ -19,6 +19,24 @@ define(["vendor/backbone",
 		
 		initialize: (model) ->
 
+			@model.on("change:first_name", () =>
+				@$el.find(".firstNameArea").val(@model.get("first_name"));
+			);
+			@model.on("change:last_name", () =>
+				@$el.find(".lastNameArea").val(@model.get("last_name"));
+			);
+			@model.on("change:nick_name", () =>
+				@$el.find(".nickNameArea").val(@model.get("nick_name"));
+			);
+			@model.on("change:email", () =>
+				@$el.find(".emailArea").val(@model.get("email"));
+			);
+			@model.on("change:country", () =>
+				@$el.find(".countryArea").val(@model.get("country"));
+			);
+			@model.on("change:birthday", () =>
+				@$el.find(".birthdayArea").val(@model.get("birthday"));
+			);
 
 		###
 		Create the Dialog and return its element
@@ -47,6 +65,22 @@ define(["vendor/backbone",
 		closePanel: () ->
 
 			@toggleHidden(false, true);
+			@model.set("first_name", "");
+			@model.trigger("change:first_name", "");
+			@model.set("last_name", "");
+			@model.trigger("change:last_name", "");
+			@model.set("nick_name", "");
+			@model.trigger("change:nick_name", "");
+			@model.set("email", "");
+			@model.trigger("change:email", "");
+			@model.set("country", "");
+			@model.trigger("change:country", "");
+			@model.set("birthday", "");
+			@model.trigger("change:birthday", "");
+			@model.set("couchid", "");
+			@model.trigger("change:couchid", "");
+			@model.set("couchrev", "");
+			@model.trigger("change:couchrev", "");
 
 		###
 		Called after Dialog has been appended, this will set up the prog search
@@ -57,27 +91,23 @@ define(["vendor/backbone",
 
 			@$el.find(".birthdayArea").datepicker();	
 
-			console.log(@$el.find(".updateButton"));
 			@$el.find(".updateButton").button();
 			@$el.find(".cancelButton").button();		
 
 		updateCustomer: () ->
 
-			console.log(@$el.find(".firstNameArea").val());
 			update = {first_name: @$el.find(".firstNameArea").val(), \
 				last_name: @$el.find(".lastNameArea").val(), \
 				nick_name: @$el.find(".nickNameArea").val(), \ 
 				email: @$el.find(".emailArea").val(), \
 				country: @$el.find(".countryArea").val(), \ 
-				birthday: @$el.find(".birthdayArea").val()}
-			console.log("update to send to server");
-			console.log(update);
+				birthday: @$el.find(".birthdayArea").val(), \ 
+				_id: @model.get("couchid"), \
+				_rev: @model.get("couchrev")}
 
-			$.post("update_user", update, (data) =>
-
-				console.log("updated user");
-				console.log(data);
-			);
-			@toggleHidden(false, true);
+			console.log("############################### I am inserting");
+			$.post("update_user", update);
+			@closePanel();
+			@model.get("customerViewModel").trigger("change:customerEvent");
 	)
 )

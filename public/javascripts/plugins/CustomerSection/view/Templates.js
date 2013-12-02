@@ -2,6 +2,16 @@
 		define(["vendor/handlebars"], function(Handlebars) {
 			return {
 		
+"customerDeleteDialog": Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [2,'>= 1.0.0-rc.3'];
+helpers = helpers || Handlebars.helpers; data = data || {};
+  
+
+
+  return "<span>Do you wish to confirm this action?</span>\r\n\r\n<div class=\"buttonPanel\">\r\n	<button id=\"button\" class=\"ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only dialogYes\" role=\"button\" aria-disabled=\"false\">\r\n			Yes\r\n	</button>\r\n	<button id=\"button\" class=\"ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only dialogNo\" role=\"button\" aria-disabled=\"false\">\r\n			No\r\n	</button>\r\n</div>";
+  }
+
+),
 "customerRowTemplate": Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [2,'>= 1.0.0-rc.3'];
 helpers = helpers || Handlebars.helpers; data = data || {};
@@ -32,7 +42,47 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   if (stack1 = helpers.birthday) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.birthday; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</td>\r\n	<td> <button class=\"editButton\"> Edit </button> </td>\r\n	<td> <button class=\"deleteButton\"> Delete </button> </td>\r\n</tr>";
+    + "</td>\r\n	\r\n	<td> <button class=\"editButton pressedBorder\" data-couchid=\"";
+  if (stack1 = helpers._id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0._id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"\r\n		data-couchrev=\"";
+  if (stack1 = helpers._rev) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0._rev; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" \r\n		data-first_name=\"";
+  if (stack1 = helpers.first_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.first_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" data-last_name=\"";
+  if (stack1 = helpers.last_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.last_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"\r\n		data-nick_name=\"";
+  if (stack1 = helpers.nick_name) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.nick_name; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" data-email=\"";
+  if (stack1 = helpers.email) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.email; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"\r\n		data-country=\"";
+  if (stack1 = helpers.country) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.country; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\" data-birthday=\"";
+  if (stack1 = helpers.birthday) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.birthday; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"> \r\n		\r\n			<span class=\"ui-icon ui-icon-wrench\"></span>\r\n		</button> \r\n	</td>\r\n	\r\n	<td> \r\n		<button class=\"deleteButton pressedBorder\" data-couchid=\"";
+  if (stack1 = helpers._id) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0._id; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"\r\n		 data-couchrev=\"";
+  if (stack1 = helpers._rev) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0._rev; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "\"> \r\n			<span class=\"ui-icon ui-icon-closethick\"></span> \r\n		</button> \r\n	</td>\r\n</tr>";
   return buffer;
   }
 
@@ -43,7 +93,7 @@ helpers = helpers || Handlebars.helpers; data = data || {};
   
 
 
-  return "\r\n<div class=\"contentDiv\">\r\n	<h2 class=\"customerSectionTitle\">Customer Section</h2>\r\n\r\n	<div style=\"clear: both\"></div>\r\n\r\n	<div class=\"customerInsertPanel\">\r\n		<button class=\"insertCustomerButton\">Insert Customer</button>\r\n	</div>\r\n\r\n	<div style=\"clear: both\"></div>\r\n\r\n	<div class=\"customerTable\">\r\n		<table border=\"1\" class=\"pressedBorder\">\r\n		<tr>\r\n		<th>Last Name</th>\r\n		<th>First Name</th>\r\n		<th>NickName</th>\r\n		<th>Email</th>\r\n		<th>Country</th>\r\n		<th>Birthday</th>\r\n		</tr>\r\n		</table>\r\n	</div>\r\n</div>\r\n";
+  return "\r\n<div class=\"contentDiv\">\r\n	<h2 class=\"customerSectionTitle\">Customer Section</h2>\r\n\r\n	<div style=\"clear: both\"></div>\r\n\r\n	<div class=\"customerInsertPanel\">\r\n		<button id=\"button\" class=\"ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only insertCustomerButton\" role=\"button\" aria-disabled=\"false\">\r\n			<span class=\"ui-button-text\">InsertCustomer</span>\r\n		</button>\r\n\r\n	</div>\r\n\r\n	<div style=\"clear: both\"></div>\r\n\r\n	<div class=\"customerTable\">\r\n		<table border=\"1\" class=\"pressedBorder\">\r\n			<tr>\r\n				<th>Last Name</th>\r\n				<th>First Name</th>\r\n				<th>NickName</th>\r\n				<th>Email</th>\r\n				<th>Country</th>\r\n				<th>Birthday</th>\r\n			</tr>\r\n		</table>\r\n	</div>\r\n</div>\r\n";
   }
 
 ),

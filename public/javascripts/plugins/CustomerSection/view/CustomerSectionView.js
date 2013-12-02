@@ -4,7 +4,7 @@ CustomerSectionBarView
 @author Josh Bass
 */
 
-define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelModel", "plugins/CustomerSection/view/CustomerUpdatePanelView", "plugins/CustomerSection/view/Templates", 'css!plugins/CustomerSection/view/res/css/customerSection.css'], function(Backbone, CustomerUpdatePanelModel, CustomerUpdatePanelView, Templates, CSS) {
+define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelModel", "plugins/CustomerSection/view/CustomerUpdatePanelView", "plugins/CustomerSection/model/CustomerDeleteDialogModel", "plugins/CustomerSection/view/CustomerDeleteDialogView", "plugins/CustomerSection/view/Templates", 'css!plugins/CustomerSection/view/res/css/customerSection.css'], function(Backbone, CustomerUpdatePanelModel, CustomerUpdatePanelView, CustomerDeleteDialogModel, CustomerDeleteDialogView, Templates, CSS) {
   return Backbone.View.extend({
     className: "customerSection",
     events: {
@@ -13,10 +13,22 @@ define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelMod
       "click .customerTable .deleteButton": "customerTableDelete"
     },
     initialize: function(model) {
+      var _this = this;
       console.log("I am the customer section!!!");
-      this.customerUpdateModel = new CustomerUpdatePanelModel();
-      return this.customerUpdateView = new CustomerUpdatePanelView({
+      this.customerUpdateModel = new CustomerUpdatePanelModel({
+        customerViewModel: this.model
+      });
+      this.customerUpdateView = new CustomerUpdatePanelView({
         model: this.customerUpdateModel
+      });
+      this.customerDeleteDialogModel = new CustomerDeleteDialogModel();
+      this.customerDeleteDialogView = new CustomerDeleteDialogView({
+        model: this.customerDeleteDialogModel
+      });
+      return this.model.on("change:customerEvent", function() {
+        return window.setTimeout(function() {
+          return _this.populateTable();
+        }, 5000);
       });
     },
     /*
@@ -32,6 +44,8 @@ define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelMod
       elem.draggable();
       elem.css("position", "absolute");
       this.customerUpdateView.toggleHidden(false);
+      elem = this.customerDeleteDialogView.render();
+      this.$el.find(".contentDiv").append(elem);
       return this.$el;
     },
     /*
@@ -42,40 +56,69 @@ define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelMod
 
     realized: function() {
       var _this = this;
+      this.$el.find(".customerInsertPanel .insertCustomerButton").button();
       this.customerUpdateView.realized();
+      this.customerDeleteDialogView.realized();
       this.populateTable();
       return window.setInterval(function() {
         return _this.populateTable();
-      }, 10000);
+      }, 20000);
     },
     populateTable: function() {
       var _this = this;
       return $.get("users_by_last_name", {}, function(data) {
-        var row, table, _i, _len, _ref, _results;
+        var header, row, table, _i, _len, _ref;
         table = _this.$el.find(".customerTable table");
+        header = _this.$el.find(".customerTable table tr")[0];
         table.html("");
+        table.append(header);
         _ref = data.rows;
-        _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           row = _ref[_i];
-          console.log("wowow");
-          _results.push(table.append(Templates.customerRowTemplate(row.value)));
+          table.append(Templates.customerRowTemplate(row.value));
         }
-        return _results;
+        return _this.$el.find(".customerTable table button").button();
       });
     },
     customerTableEdit: function(event) {
-      return console.log("customer table edit");
+      var dataset;
+      console.log("customer table edit");
+      dataset = $(event.currentTarget)[0].dataset;
+      this.customerUpdateModel.set("first_name", dataset.first_name);
+      this.customerUpdateModel.set("last_name", dataset.last_name);
+      this.customerUpdateModel.set("nick_name", dataset.nick_name);
+      this.customerUpdateModel.set("email", dataset.email);
+      this.customerUpdateModel.set("country", dataset.country);
+      this.customerUpdateModel.set("birthday", dataset.birthday);
+      this.customerUpdateModel.set("couchid", dataset.couchid);
+      this.customerUpdateModel.set("couchrev", dataset.couchrev);
+      return this.customerUpdateView.toggleHidden(true, true);
     },
     customerTableDelete: function(event) {
-      return console.log("customer table delete");
+      var deleteAction,
+        _this = this;
+      console.log("customer table delete");
+      deleteAction = function() {
+        var dataset;
+        dataset = $(event.currentTarget)[0].dataset;
+        $.post("delete_user", {
+          _id: dataset.couchid,
+          _rev: dataset.couchrev
+        });
+        return _this.model.trigger("change:customerEvent");
+      };
+      return this.customerDeleteDialogView.confirmDelete(deleteAction);
     },
     insertCustomerEvent: function(event) {
-      var _this = this;
-      this.customerUpdateView.toggleHidden(true, true);
-      return window.setTimeout(function() {
-        return _this.populateTable();
-      }, 2000);
+      this.customerUpdateModel.set("first_name", "");
+      this.customerUpdateModel.set("last_name", "");
+      this.customerUpdateModel.set("nick_name", "");
+      this.customerUpdateModel.set("email", "");
+      this.customerUpdateModel.set("country", "");
+      this.customerUpdateModel.set("birthday", "");
+      this.customerUpdateModel.set("couchid", "");
+      this.customerUpdateModel.set("couchrev", "");
+      return this.customerUpdateView.toggleHidden(true, true);
     }
   });
 });

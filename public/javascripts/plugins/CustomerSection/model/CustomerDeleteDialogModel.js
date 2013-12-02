@@ -5,8 +5,8 @@
 */
 
 define(["vendor/backbone"], function(Backbone, Math2) {
-  var customerUpdatePanelModel;
-  return customerUpdatePanelModel = Backbone.Model.extend({
+  var customerDeleteDialogModel;
+  return customerDeleteDialogModel = Backbone.Model.extend({
     /**
     		* initialize a new model, will automatically initialize a new
     		* search
@@ -15,8 +15,6 @@ define(["vendor/backbone"], function(Backbone, Math2) {
     		*
     */
 
-    initialize: function(options) {
-      return this.set("customerViewModel", options.customerViewModel);
-    }
+    initialize: function(options) {}
   });
 });

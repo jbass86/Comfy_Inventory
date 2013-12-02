@@ -35,6 +35,11 @@
 	display: inline-block;
 }
 
+.customerSection .customerTable button{
+	background: grey;
+	color: white;
+}
+
 .customerSection .customerInsertPanel{
 
 	text-align: center;

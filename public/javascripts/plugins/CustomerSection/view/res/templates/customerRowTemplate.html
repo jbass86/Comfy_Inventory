@@ -5,6 +5,21 @@
 	<td>{{email}}</td>
 	<td>{{country}}</td>
 	<td>{{birthday}}</td>
-	<td> <button class="editButton"> Edit </button> </td>
-	<td> <button class="deleteButton"> Delete </button> </td>
+	
+	<td> <button class="editButton pressedBorder" data-couchid="{{_id}}"
+		data-couchrev="{{_rev}}" 
+		data-first_name="{{first_name}}" data-last_name="{{last_name}}"
+		data-nick_name="{{nick_name}}" data-email="{{email}}"
+		data-country="{{country}}" data-birthday="{{birthday}}"> 
+		
+			<span class="ui-icon ui-icon-wrench"></span>
+		</button> 
+	</td>
+	
+	<td> 
+		<button class="deleteButton pressedBorder" data-couchid="{{_id}}"
+		 data-couchrev="{{_rev}}"> 
+			<span class="ui-icon ui-icon-closethick"></span> 
+		</button> 
+	</td>
 </tr>
