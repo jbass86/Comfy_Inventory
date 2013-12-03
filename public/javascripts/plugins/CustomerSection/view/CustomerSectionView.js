@@ -4,7 +4,7 @@ CustomerSectionBarView
 @author Josh Bass
 */
 
-define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelModel", "plugins/CustomerSection/view/CustomerUpdatePanelView", "plugins/CustomerSection/model/CustomerDeleteDialogModel", "plugins/CustomerSection/view/CustomerDeleteDialogView", "plugins/CustomerSection/view/Templates", 'css!plugins/CustomerSection/view/res/css/customerSection.css'], function(Backbone, CustomerUpdatePanelModel, CustomerUpdatePanelView, CustomerDeleteDialogModel, CustomerDeleteDialogView, Templates, CSS) {
+define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelModel", "plugins/CustomerSection/view/CustomerUpdatePanelView", "plugins/ConfirmDialog/model/ConfirmDialogModel", "plugins/ConfirmDialog/view/ConfirmDialogView", "plugins/CustomerSection/view/Templates", 'css!plugins/CustomerSection/view/res/css/customerSection.css'], function(Backbone, CustomerUpdatePanelModel, CustomerUpdatePanelView, ConfirmDialogModel, ConfirmDialogView, Templates, CSS) {
   return Backbone.View.extend({
     className: "customerSection",
     events: {
@@ -21,8 +21,10 @@ define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelMod
       this.customerUpdateView = new CustomerUpdatePanelView({
         model: this.customerUpdateModel
       });
-      this.customerDeleteDialogModel = new CustomerDeleteDialogModel();
-      this.customerDeleteDialogView = new CustomerDeleteDialogView({
+      this.customerDeleteDialogModel = new ConfirmDialogModel({
+        title: "Customer Delete Confirm"
+      });
+      this.customerDeleteDialogView = new ConfirmDialogView({
         model: this.customerDeleteDialogModel
       });
       return this.model.on("change:customerEvent", function() {

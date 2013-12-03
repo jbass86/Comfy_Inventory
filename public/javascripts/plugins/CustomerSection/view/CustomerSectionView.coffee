@@ -5,13 +5,13 @@ CustomerSectionBarView
 define(["vendor/backbone",
 		"plugins/CustomerSection/model/CustomerUpdatePanelModel",
 		"plugins/CustomerSection/view/CustomerUpdatePanelView",
-		"plugins/CustomerSection/model/CustomerDeleteDialogModel",
-		"plugins/CustomerSection/view/CustomerDeleteDialogView",
+		"plugins/ConfirmDialog/model/ConfirmDialogModel",
+		"plugins/ConfirmDialog/view/ConfirmDialogView",
 		"plugins/CustomerSection/view/Templates",
 		'css!plugins/CustomerSection/view/res/css/customerSection.css'],
 
 (Backbone, CustomerUpdatePanelModel, CustomerUpdatePanelView, 
-	CustomerDeleteDialogModel, CustomerDeleteDialogView, Templates, CSS) ->
+	ConfirmDialogModel, ConfirmDialogView, Templates, CSS) ->
 
 	Backbone.View.extend(
 
@@ -29,8 +29,8 @@ define(["vendor/backbone",
 			@customerUpdateModel = new CustomerUpdatePanelModel({customerViewModel: @model});
 			@customerUpdateView = new CustomerUpdatePanelView({model: @customerUpdateModel});
 
-			@customerDeleteDialogModel = new CustomerDeleteDialogModel();
-			@customerDeleteDialogView = new CustomerDeleteDialogView({model: @customerDeleteDialogModel});
+			@customerDeleteDialogModel = new ConfirmDialogModel({title: "Customer Delete Confirm"});
+			@customerDeleteDialogView = new ConfirmDialogView({model: @customerDeleteDialogModel});
 
 			@model.on("change:customerEvent", ()=>
 				window.setTimeout(() =>
