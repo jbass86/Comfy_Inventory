@@ -8,7 +8,8 @@ define(["vendor/backbone", "plugins/CustomerSection/model/CustomerSectionModel",
   return Backbone.View.extend({
     className: "navigationBar pressedBorder",
     events: {
-      "click .expandButton": "toggleNavBarExpand"
+      "click .expandButton": "toggleNavBarExpand",
+      "click .section": "selectView"
     },
     initialize: function(model) {
       this.navBarExpanded = true;
@@ -52,6 +53,19 @@ define(["vendor/backbone", "plugins/CustomerSection/model/CustomerSectionModel",
         this.$el.find(".navBarLabel").css("display", "none");
         return this.$el.find(".section").css("display", "none");
       }
+    },
+    selectView: function(event) {
+      var _this = this;
+      this.currentView.$el.removeClass("widthTransition");
+      return this.currentView.$el.effect("blind", {}, 500, function() {
+        console.log("done folding now open new view");
+        _this.currentView.$el.addClass("widthTransition");
+        console.log("the event is ");
+        return console.log(event);
+      });
+    },
+    loadNewView: function(viewName) {
+      return console.log("loading up a new view...");
     }
   });
 });

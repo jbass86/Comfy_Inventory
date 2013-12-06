@@ -207,3 +207,8 @@ div.table {
 	background-color: black;
 	
 }
+
+.widthTransition{
+	transition: width 1s;
+	-webkit-transition: width 1s;
+}

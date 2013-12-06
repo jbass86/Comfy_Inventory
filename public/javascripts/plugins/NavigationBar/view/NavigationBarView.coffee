@@ -13,7 +13,8 @@ define(["vendor/backbone",
 	Backbone.View.extend(
 		className: "navigationBar pressedBorder", 
 
-		events: {"click .expandButton" : "toggleNavBarExpand"},
+		events: {"click .expandButton" : "toggleNavBarExpand", \
+				 "click .section" : "selectView"},
 		
 		initialize: (model) ->
 
@@ -63,5 +64,22 @@ define(["vendor/backbone",
 				@currentView.$el.css("width", "99%");
 				@$el.find(".navBarLabel").css("display", "none");
 				@$el.find(".section").css("display", "none");
+
+		selectView: (event)->
+
+			#unfortunatley css transition does not play nice with 
+			#jqueryUI so remove it before the animation then re add it
+			#when its done.
+			@currentView.$el.removeClass("widthTransition");
+			@currentView.$el.effect( "blind", {}, 500, () =>
+				console.log("done folding now open new view");
+				@currentView.$el.addClass("widthTransition");
+				console.log("the event is ");
+				console.log(event);
+			);
+
+		loadNewView: (viewName) ->
+
+			console.log("loading up a new view...");
 	 )
 )

@@ -6,7 +6,7 @@ CustomerSectionBarView
 
 define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelModel", "plugins/CustomerSection/view/CustomerUpdatePanelView", "plugins/ConfirmDialog/model/ConfirmDialogModel", "plugins/ConfirmDialog/view/ConfirmDialogView", "plugins/CustomerSection/view/Templates", 'css!plugins/CustomerSection/view/res/css/customerSection.css'], function(Backbone, CustomerUpdatePanelModel, CustomerUpdatePanelView, ConfirmDialogModel, ConfirmDialogView, Templates, CSS) {
   return Backbone.View.extend({
-    className: "customerSection",
+    className: "customerSection widthTransition",
     events: {
       "click .insertCustomerButton": "insertCustomerEvent",
       "click .customerTable .editButton": "customerTableEdit",

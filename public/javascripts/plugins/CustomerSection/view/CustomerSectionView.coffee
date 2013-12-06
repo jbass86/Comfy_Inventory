@@ -15,7 +15,7 @@ define(["vendor/backbone",
 
 	Backbone.View.extend(
 
-		className: "customerSection",
+		className: "customerSection widthTransition",
 
 		events: {"click .insertCustomerButton" : "insertCustomerEvent", \
 				 "click .customerTable .editButton" : "customerTableEdit", \
