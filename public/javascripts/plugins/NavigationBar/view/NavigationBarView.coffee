@@ -71,7 +71,7 @@ define(["vendor/backbone",
 			#jqueryUI so remove it before the animation then re add it
 			#when its done.
 			@currentView.$el.removeClass("widthTransition");
-			@currentView.$el.effect( "blind", {}, 500, () =>
+			@currentView.$el.toggle( "blind", {}, 500, () =>
 				console.log("done folding now open new view");
 				@currentView.$el.addClass("widthTransition");
 				console.log("the event is ");

@@ -44,7 +44,7 @@ define(["vendor/backbone",
 					console.log("I was closed...");
 					if (@model.get("actionConfirmed"))
 						console.log("I Was confirmed!! :)");
-						deleteAction();
+						confirmAction();
 					
 					@model.set("actionConfirmed", false);
 				});

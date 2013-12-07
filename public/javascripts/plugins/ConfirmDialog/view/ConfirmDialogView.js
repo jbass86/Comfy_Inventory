@@ -42,7 +42,7 @@ define(["vendor/backbone", "plugins/ConfirmDialog/view/Templates", 'css!plugins/
           console.log("I was closed...");
           if (_this.model.get("actionConfirmed")) {
             console.log("I Was confirmed!! :)");
-            deleteAction();
+            confirmAction();
           }
           return _this.model.set("actionConfirmed", false);
         }

@@ -57,7 +57,7 @@ define(["vendor/backbone", "plugins/CustomerSection/model/CustomerSectionModel",
     selectView: function(event) {
       var _this = this;
       this.currentView.$el.removeClass("widthTransition");
-      return this.currentView.$el.effect("blind", {}, 500, function() {
+      return this.currentView.$el.toggle("blind", {}, 500, function() {
         console.log("done folding now open new view");
         _this.currentView.$el.addClass("widthTransition");
         console.log("the event is ");
