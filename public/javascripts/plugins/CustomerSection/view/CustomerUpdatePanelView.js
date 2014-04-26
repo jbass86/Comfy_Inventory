@@ -27,8 +27,8 @@ define(["vendor/backbone", "plugins/CustomerSection/view/Templates", "css!plugin
       this.model.on("change:email", function() {
         return _this.$el.find(".emailArea").val(_this.model.get("email"));
       });
-      this.model.on("change:country", function() {
-        return _this.$el.find(".countryArea").val(_this.model.get("country"));
+      this.model.on("change:address", function() {
+        return _this.$el.find(".addressArea").val(_this.model.get("address"));
       });
       return this.model.on("change:birthday", function() {
         return _this.$el.find(".birthdayArea").val(_this.model.get("birthday"));
@@ -69,8 +69,8 @@ define(["vendor/backbone", "plugins/CustomerSection/view/Templates", "css!plugin
       this.model.trigger("change:nick_name", "");
       this.model.set("email", "");
       this.model.trigger("change:email", "");
-      this.model.set("country", "");
-      this.model.trigger("change:country", "");
+      this.model.set("address", "");
+      this.model.trigger("change:address", "");
       this.model.set("birthday", "");
       this.model.trigger("change:birthday", "");
       this.model.set("couchid", "");
@@ -96,7 +96,7 @@ define(["vendor/backbone", "plugins/CustomerSection/view/Templates", "css!plugin
         last_name: this.$el.find(".lastNameArea").val(),
         nick_name: this.$el.find(".nickNameArea").val(),
         email: this.$el.find(".emailArea").val(),
-        country: this.$el.find(".countryArea").val(),
+        address: this.$el.find(".addressArea").val(),
         birthday: this.$el.find(".birthdayArea").val(),
         _id: this.model.get("couchid"),
         _rev: this.model.get("couchrev")

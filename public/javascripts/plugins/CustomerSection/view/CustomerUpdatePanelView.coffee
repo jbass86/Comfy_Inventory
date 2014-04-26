@@ -31,8 +31,8 @@ define(["vendor/backbone",
 			@model.on("change:email", () =>
 				@$el.find(".emailArea").val(@model.get("email"));
 			);
-			@model.on("change:country", () =>
-				@$el.find(".countryArea").val(@model.get("country"));
+			@model.on("change:address", () =>
+				@$el.find(".addressArea").val(@model.get("address"));
 			);
 			@model.on("change:birthday", () =>
 				@$el.find(".birthdayArea").val(@model.get("birthday"));
@@ -73,8 +73,8 @@ define(["vendor/backbone",
 			@model.trigger("change:nick_name", "");
 			@model.set("email", "");
 			@model.trigger("change:email", "");
-			@model.set("country", "");
-			@model.trigger("change:country", "");
+			@model.set("address", "");
+			@model.trigger("change:address", "");
 			@model.set("birthday", "");
 			@model.trigger("change:birthday", "");
 			@model.set("couchid", "");
@@ -100,7 +100,7 @@ define(["vendor/backbone",
 				last_name: @$el.find(".lastNameArea").val(), \
 				nick_name: @$el.find(".nickNameArea").val(), \ 
 				email: @$el.find(".emailArea").val(), \
-				country: @$el.find(".countryArea").val(), \ 
+				address: @$el.find(".addressArea").val(), \ 
 				birthday: @$el.find(".birthdayArea").val(), \ 
 				_id: @model.get("couchid"), \
 				_rev: @model.get("couchrev")}

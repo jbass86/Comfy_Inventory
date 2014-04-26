@@ -90,7 +90,7 @@ define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelMod
       this.customerUpdateModel.set("last_name", dataset.last_name);
       this.customerUpdateModel.set("nick_name", dataset.nick_name);
       this.customerUpdateModel.set("email", dataset.email);
-      this.customerUpdateModel.set("country", dataset.country);
+      this.customerUpdateModel.set("address", dataset.address);
       this.customerUpdateModel.set("birthday", dataset.birthday);
       this.customerUpdateModel.set("couchid", dataset.couchid);
       this.customerUpdateModel.set("couchrev", dataset.couchrev);
@@ -116,7 +116,7 @@ define(["vendor/backbone", "plugins/CustomerSection/model/CustomerUpdatePanelMod
       this.customerUpdateModel.set("last_name", "");
       this.customerUpdateModel.set("nick_name", "");
       this.customerUpdateModel.set("email", "");
-      this.customerUpdateModel.set("country", "");
+      this.customerUpdateModel.set("address", "");
       this.customerUpdateModel.set("birthday", "");
       this.customerUpdateModel.set("couchid", "");
       this.customerUpdateModel.set("couchrev", "");

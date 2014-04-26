@@ -95,7 +95,7 @@ define(["vendor/backbone",
 			@customerUpdateModel.set("last_name", dataset.last_name);
 			@customerUpdateModel.set("nick_name", dataset.nick_name);
 			@customerUpdateModel.set("email", dataset.email);
-			@customerUpdateModel.set("country", dataset.country);
+			@customerUpdateModel.set("address", dataset.address);
 			@customerUpdateModel.set("birthday", dataset.birthday);
 			@customerUpdateModel.set("couchid", dataset.couchid);
 			@customerUpdateModel.set("couchrev", dataset.couchrev);
@@ -119,7 +119,7 @@ define(["vendor/backbone",
 			@customerUpdateModel.set("last_name", "");
 			@customerUpdateModel.set("nick_name", "");
 			@customerUpdateModel.set("email", "");
-			@customerUpdateModel.set("country", "");
+			@customerUpdateModel.set("address", "");
 			@customerUpdateModel.set("birthday", "");
 			@customerUpdateModel.set("couchid", "");
 			@customerUpdateModel.set("couchrev", "");
