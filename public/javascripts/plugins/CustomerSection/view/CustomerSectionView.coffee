@@ -44,7 +44,12 @@ define(["vendor/backbone",
 		###
 		render: () ->
 
+
+			console.log("YOYOYO")
 			@$el.html(Templates.customerSection({}));
+			console.log(Templates.customerSection({}));
+
+			console.log("YOYOYO")
 
 			elem = @customerUpdateView.render();
 			@$el.find(".contentDiv").append(elem);
