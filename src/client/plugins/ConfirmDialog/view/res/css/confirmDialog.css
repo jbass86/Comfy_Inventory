@@ -1,0 +1,15 @@
+.confirmDialog{
+
+	width: 200px;
+	height: 200px;
+}
+
+.confirmDialog span{
+	text-align: center;
+}
+
+.confirmDialog .buttonPanel{
+
+	padding-top: 20px;
+	text-align: center;
+}

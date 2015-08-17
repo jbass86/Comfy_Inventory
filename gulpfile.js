@@ -3,6 +3,8 @@ var coffee = require('gulp-coffee');
 var handlebars = require('gulp-handlebars');
 var defineModule = require('gulp-define-module');
 var del = require('del');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
 
 var paths = {
   main_source: 'public/javascripts/*.js',
@@ -54,4 +56,14 @@ gulp.task("build-client", ['clean', 'vendor', 'copy-js', 'coffee']);
 
 gulp.task('default', function() {
   // place code for your default task here
+});
+
+gulp.task('test', function(){
+
+  return browserify('./test/app.js')
+         .bundle()
+         //Pass desired output filename to vinyl-source-stream
+         .pipe(source('bundle.js'))
+         // Start piping stream to tasks!
+         .pipe(gulp.dest('./testDist/'));
 });
