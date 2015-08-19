@@ -1,9 +1,13 @@
 
-var headerBarModel = require("./plugins/HeaderBar/model/HeaderBarModel.js");
-var headerBarView = require("./plugins/HeaderBar/view/HeaderBarView.js");
-var navBarModel = require("./plugins/NavigationBar/model/NavigationBarModel.js");
-var navBarModel = require("./plugins/NavigationBar/view/NavigationBarView.js");
-var $ = require("jquery");
+$ = require("jquery");
+jquery = $;
+jQuery = $;
+bootstrap = require("bootstrap");
+
+var HeaderBarModel = require("./plugins/HeaderBar/model/HeaderBarModel.coffee");
+var HeaderBarView = require("./plugins/HeaderBar/view/HeaderBarView.coffee");
+var NavigationBarModel = require("./plugins/NavigationBar/model/NavigationBarModel.coffee");
+var NavigationBarView = require("./plugins/NavigationBar/view/NavigationBarView.coffee");
 
 var globalCSS = require("./stylesheets/global.css");
 var styleCSS = require("./stylesheets/style.css");
@@ -11,9 +15,9 @@ var styleCSS = require("./stylesheets/style.css");
 
 $(function(){
 
-
 	var headerBarModel = new HeaderBarModel();
 	var headerBarView = new HeaderBarView({model: headerBarModel});
+	console.log(headerBarView);
 	$(".headerArea").append(headerBarView.render());
 
 	var navigationBarModel = new NavigationBarModel({mainArea: $(".mainArea")});
@@ -35,5 +39,4 @@ $(function(){
 		console.log("users by last name returned...");
 		console.log(data);
 	});
-
 });

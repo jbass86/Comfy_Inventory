@@ -2,16 +2,16 @@
 NavigationBarView
 @author Josh Bass
 ###
-define(["vendor/backbone",
-		"plugins/HeaderBar/view/Templates",
-		'css!plugins/HeaderBar/view/res/css/headerBar.css'],
 
-(Backbone, Templates, CSS) ->
+backbone = require("backbone");
+headerBarTemplate = require("plugins/HeaderBar/view/res/templates/headerBar.html");
+css = require("plugins/HeaderBar/view/res/css/headerBar.css");
 
-	Backbone.View.extend(
+module.exports = backbone.View.extend(
+
 		className: "headerBar",
 
-		
+
 		initialize: (model) ->
 
 			console.log("hey the nav bar is initialized")
@@ -23,7 +23,7 @@ define(["vendor/backbone",
 		###
 		render: () ->
 
-			@$el.html(Templates.HeaderBar());
+			@$el.html(headerBarTemplate());
 			return @$el
 
 		###
@@ -32,6 +32,5 @@ define(["vendor/backbone",
 		@method realized
 		###
 		realized: () ->
-			
-	)
-)
+
+	);

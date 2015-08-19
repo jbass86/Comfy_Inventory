@@ -2,12 +2,9 @@
 ###*
 * @author Josh Bass
 *###
+backbone = require("backbone");
 
-define(["vendor/backbone"]
-
-(Backbone, Math2) ->
-
-	headerBarModel = Backbone.Model.extend(
+module.exports = backbone.Model.extend(
 
 
 		###*
@@ -19,8 +16,4 @@ define(["vendor/backbone"]
 		initialize: (options) ->
 
 			console.log("Navigation Model Created!!");
-
-
 	);
-
-);

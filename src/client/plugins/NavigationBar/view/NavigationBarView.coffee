@@ -2,28 +2,29 @@
 NavigationBarView
 @author Josh Bass
 ###
-define(["vendor/backbone",
-		"plugins/CustomerSection/model/CustomerSectionModel",
-		"plugins/CustomerSection/view/CustomerSectionView"
-		"plugins/NavigationBar/view/Templates",
-		'css!plugins/NavigationBar/view/res/css/navigationBar.css'],
 
-(Backbone,  CustomerSectionModel, CustomerSectionView, Templates, CSS) ->
+backbone = require("backbone");
+customerSectionModel = require("plugins/CustomerSection/model/CustomerSectionModel.coffee");
+customerSectionView = require("plugins/CustomerSection/view/CustomerSectionView.coffee");
+navigationBarTemplate = require("plugins/NavigationBar/view/res/templates/navigationBar.html");
+css = require("plugins/NavigationBar/view/res/css/navigationBar.css");
 
-	Backbone.View.extend(
-		className: "navigationBar pressedBorder", 
+module.exports = () ->
+
+	backbone.View.extend(
+		className: "navigationBar pressedBorder",
 
 		events: {"click .expandButton" : "toggleNavBarExpand", \
 				 "click .section" : "selectView"},
-		
+
 		initialize: (model) ->
 
 			@navBarExpanded = true;
 
 			console.log("hey the nav bar is initialized")
 
-			@customerSectionModel = new CustomerSectionModel();
-			@customerSectionView = new CustomerSectionView({model: @customerSectionModel})
+			@customerSectionModel = new customerSectionModel();
+			@customerSectionView = new customerSectionView({model: @customerSectionModel})
 
 			@currentView = @customerSectionView;
 
@@ -36,7 +37,7 @@ define(["vendor/backbone",
 
 			@customerSectionView.render();
 
-			@$el.html(Templates.NavigationBar());
+			@$el.html(navigationBarTemplate());
 			console.log(@currentView);
 			@model.get("mainElement").append(@currentView.$el);
 			@currentView.realized();
@@ -48,18 +49,18 @@ define(["vendor/backbone",
 		@method realized
 		###
 		realized: () ->
-			
+
 		toggleNavBarExpand: () ->
 
 			@navBarExpanded = !@navBarExpanded;
 			if (@navBarExpanded)
-			
+
 				@$el.css("width", "15%");
 				@currentView.$el.css("width", "85%");
 				@$el.find(".navBarLabel").css("display", "");
 				@$el.find(".section").css("display", "")
 			else
-	
+
 				@$el.css("width", "1%");
 				@currentView.$el.css("width", "99%");
 				@$el.find(".navBarLabel").css("display", "none");
@@ -67,7 +68,7 @@ define(["vendor/backbone",
 
 		selectView: (event)->
 
-			#unfortunatley css transition does not play nice with 
+			#unfortunatley css transition does not play nice with
 			#jqueryUI so remove it before the animation then re add it
 			#when its done.
 			@currentView.$el.removeClass("widthTransition");
@@ -82,4 +83,3 @@ define(["vendor/backbone",
 
 			console.log("loading up a new view...");
 	 )
-)

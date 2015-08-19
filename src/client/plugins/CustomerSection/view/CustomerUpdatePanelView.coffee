@@ -2,13 +2,14 @@
 CustomerSectionBarView
 @author Josh Bass
 ###
-define(["vendor/backbone", 
-		"plugins/CustomerSection/view/Templates"
-		"css!plugins/CustomerSection/view/res/css/customerUpdatePanel.css"],
 
-(Backbone, Templates, CSS) ->
+backbone = require("backbone");
+customerUpdatePanelTemplate = require("plugins/CustomerSection/view/res/templates/customerUpdatePanel.html");
+css = require("plugins/CustomerSection/view/res/css/customerUpdatePanel.css");
 
-	Backbone.View.extend(
+module.exports = () ->
+
+	backbone.View.extend(
 		className: "customerUpdatePanel pressedborder box_shadow",
 		id: "draggable",
 
@@ -16,7 +17,7 @@ define(["vendor/backbone",
 				 "click .cancelButton" : "closePanel", \
 				 "click .updateButton" : "updateCustomer"},
 
-		
+
 		initialize: (model) ->
 
 			@model.on("change:first_name", () =>
@@ -44,13 +45,13 @@ define(["vendor/backbone",
 		###
 		render: () ->
 
-			@$el.html(Templates.customerUpdatePanel());
+			@$el.html(customerUpdatePanelTemplate());
 			@$el.find(".birthdayArea").datepicker();
 			return @$el
 
 
 		toggleHidden: (overlayOn, animate) ->
-		
+
 			if (!overlayOn)
 				if (animate)
 					@$el.fadeOut("slow");
@@ -89,19 +90,19 @@ define(["vendor/backbone",
 		###
 		realized: () ->
 
-			@$el.find(".birthdayArea").datepicker();	
+			@$el.find(".birthdayArea").datepicker();
 
 			@$el.find(".updateButton").button();
-			@$el.find(".cancelButton").button();		
+			@$el.find(".cancelButton").button();
 
 		updateCustomer: () ->
 
 			update = {first_name: @$el.find(".firstNameArea").val(), \
 				last_name: @$el.find(".lastNameArea").val(), \
-				nick_name: @$el.find(".nickNameArea").val(), \ 
+				nick_name: @$el.find(".nickNameArea").val(), \
 				email: @$el.find(".emailArea").val(), \
-				address: @$el.find(".addressArea").val(), \ 
-				birthday: @$el.find(".birthdayArea").val(), \ 
+				address: @$el.find(".addressArea").val(), \
+				birthday: @$el.find(".birthdayArea").val(), \
 				_id: @model.get("couchid"), \
 				_rev: @model.get("couchrev")}
 
@@ -110,4 +111,3 @@ define(["vendor/backbone",
 			@closePanel();
 			@model.get("customerViewModel").trigger("change:customerEvent");
 	)
-)

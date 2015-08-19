@@ -1,12 +1,11 @@
 ###*
 * @author Josh Bass
 *###
+backbone = require("backbone");
 
-define(["vendor/backbone"]
+module.exports = () ->
 
-(Backbone) ->
-
-	customerDeleteDialogModel = Backbone.Model.extend(
+	customerDeleteDialogModel = backbone.Model.extend(
 
 		###*
 		* @method initialize
@@ -18,6 +17,4 @@ define(["vendor/backbone"]
 				@set("title", options.title);
 			else
 				@set("title", "Confirm Dialog");
-
 	);
-);

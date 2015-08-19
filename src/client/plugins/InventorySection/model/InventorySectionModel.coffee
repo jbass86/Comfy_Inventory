@@ -2,12 +2,11 @@
 * @author Josh Bass
 *###
 
-define(["vendor/backbone"]
+backbone = require("backbone");
 
-(Backbone, Math2) ->
+module.exports = () ->
 
-	inventorySectionModel = Backbone.Model.extend(
-
+	inventorySectionModel = backbone.Model.extend(
 
 		###*
 		* initialize a new model, will automatically initialize a new
@@ -18,5 +17,3 @@ define(["vendor/backbone"]
 		initialize: (options) ->
 
 	);
-
-);

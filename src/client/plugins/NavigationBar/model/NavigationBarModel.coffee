@@ -1,12 +1,11 @@
 ###*
 * @author Josh Bass
 *###
+backbone = require("backbone");
 
-define(["vendor/backbone"]
+module.exports = () ->
 
-(Backbone) ->
-
-	navigationBarModel = Backbone.Model.extend(
+	navigationBarModel = backbone.Model.extend(
 
 
 		###*
@@ -20,8 +19,6 @@ define(["vendor/backbone"]
 			@set("mainElement", options.mainArea);
 			console.log("main element from the model is ");
 			console.log(@get("mainElement"));
-	
-			
-	);
 
-);
+
+	);

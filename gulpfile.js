@@ -13,49 +13,39 @@ var paths = {
 };
 
 gulp.task('clean', function(cb){
-  del('dist', cb);
+  del('dist', {force: true}, cb);
 });
 
-gulp.task('coffee', function(){
+gulp.task('build-client', function(){
+  browserify({
+        entries: ['./src/client/main.js'],
+        paths: ['./src/client/'],
+        debug: true})
+     .bundle()
+     .pipe(source('client_blob.js'))
+     .pipe(gulp.dest('./dist/client'));
 
-  gulp.src(paths.coffee_source)
-  .pipe(coffee())
-  .pipe(gulp.dest('dist/client'));
+  gulp.src('./src/client/index.html')
+    .pipe(gulp.dest('dist/client'));
+
+  gulp.src('./src/client/images/*')
+    .pipe(gulp.dest('dist/client/images'));
+  gulp.src('./src/client/img/*')
+    .pipe(gulp.dest('dist/client/img'));
 });
 
-gulp.task('copy-js', function(){
+gulp.task('build-server', function(){
 
-  gulp.src(paths.main_source)
-  .pipe(gulp.dest("dist/client/javascripts"));
-
-  gulp.src(paths.views)
-  .pipe(gulp.dest("dist/client/views"));
+  gulp.src('./src/server/app.js')
+    .pipe(gulp.dest('dist'));
+  gulp.src('./src/server/routes/*.js')
+    .pipe(gulp.dest('dist/routes/'));
 });
 
-gulp.task('vendor', function(){
+gulp.task('build', ['clean'], function(){
 
-  gulp.src("public/images/*")
-  .pipe(gulp.dest("dist/client/images"));
-  gulp.src("public/img/*")
-  .pipe(gulp.dest("dist/client/img"));
-  gulp.src("public/stylesheets/*")
-  .pipe(gulp.dest("dist/client/stylesheets"));
-  gulp.src("public/javascripts/vendor/*")
-  .pipe(gulp.dest("dist/client/javascripts/vendor"));
-});
-
-gulp.task('handlebars', function(){
-
-  gulp.src("public/**/res/templates/*.html")
-  .pipe(handlebars())
-  .pipe(defineModule('node'))
-  .pipe(gulp.dest("dist/client"));
-});
-
-gulp.task("build-client", ['clean', 'vendor', 'copy-js', 'coffee']);
-
-gulp.task('default', function() {
-  // place code for your default task here
+  gulp.start('build-client');
+  gulp.start('build-server');
 });
 
 gulp.task('test', function(){

@@ -1,13 +1,11 @@
 ###*
 * @author Josh Bass
 *###
+backbone = require("backbone");
 
-define(["vendor/backbone"]
+module.exports = () ->
 
-(Backbone, Math2) ->
-
-	customerUpdatePanelModel = Backbone.Model.extend(
-
+	customerUpdatePanelModel = backbone.Model.extend(
 
 		###*
 		* initialize a new model, will automatically initialize a new
@@ -17,7 +15,4 @@ define(["vendor/backbone"]
 		*###
 		initialize: (options) ->
 			@set("customerViewModel", options.customerViewModel);
-
 	);
-
-);

@@ -1,12 +1,11 @@
 ###*
 * @author Josh Bass
 *###
+backbone = require("backbone");
 
-define(["vendor/backbone"]
+module.exports = () ->
 
-(Backbone, Math2) ->
-
-	customerSectionModel = Backbone.Model.extend(
+	customerSectionModel = backbone.Model.extend(
 
 
 		###*
@@ -18,5 +17,3 @@ define(["vendor/backbone"]
 		initialize: (options) ->
 
 	);
-
-);

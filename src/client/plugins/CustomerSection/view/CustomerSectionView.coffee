@@ -2,18 +2,19 @@
 CustomerSectionBarView
 @author Josh Bass
 ###
-define(["vendor/backbone",
-		"plugins/CustomerSection/model/CustomerUpdatePanelModel",
-		"plugins/CustomerSection/view/CustomerUpdatePanelView",
-		"plugins/ConfirmDialog/model/ConfirmDialogModel",
-		"plugins/ConfirmDialog/view/ConfirmDialogView",
-		"plugins/CustomerSection/view/Templates",
-		'css!plugins/CustomerSection/view/res/css/customerSection.css'],
 
-(Backbone, CustomerUpdatePanelModel, CustomerUpdatePanelView, 
-	ConfirmDialogModel, ConfirmDialogView, Templates, CSS) ->
+backbone = require("backbone");
+customerUpdatePanelModel = require("plugins/CustomerSection/model/CustomerUpdatePanelModel.coffee");
+customerUpdatePanelView = require("plugins/CustomerSection/view/CustomerUpdatePanelView.coffee");
+confirmDialogModel = require("plugins/ConfirmDialog/model/ConfirmDialogModel.coffee");
+confirmDialogView = require("plugins/ConfirmDialog/view/ConfirmDialogView.coffee");
+customerSectionTemplate = require("plugins/CustomerSection/view/res/templates/customerSection.html");
+customerRowTemplate = require("plugins/CustomerSection/view/res/templates/customerRowTemplate.html");
+css = require("plugins/CustomerSection/view/res/css/customerSection.css");
 
-	Backbone.View.extend(
+module.exports = () ->
+
+	backbone.View.extend(
 
 		className: "customerSection widthTransition",
 
@@ -21,16 +22,16 @@ define(["vendor/backbone",
 				 "click .customerTable .editButton" : "customerTableEdit", \
 				 "click .customerTable .deleteButton" : "customerTableDelete"},
 
-		
+
 		initialize: (model) ->
 
 			console.log("I am the customer section!!!")
 
-			@customerUpdateModel = new CustomerUpdatePanelModel({customerViewModel: @model});
-			@customerUpdateView = new CustomerUpdatePanelView({model: @customerUpdateModel});
+			@customerUpdateModel = new customerUpdatePanelModel({customerViewModel: @model});
+			@customerUpdateView = new customerUpdatePanelView({model: @customerUpdateModel});
 
-			@customerDeleteDialogModel = new ConfirmDialogModel({title: "Customer Delete Confirm"});
-			@customerDeleteDialogView = new ConfirmDialogView({model: @customerDeleteDialogModel});
+			@customerDeleteDialogModel = new confirmDialogModel({title: "Customer Delete Confirm"});
+			@customerDeleteDialogView = new confirmDialogView({model: @customerDeleteDialogModel});
 
 			@model.on("change:customerEvent", ()=>
 				window.setTimeout(() =>
@@ -46,8 +47,8 @@ define(["vendor/backbone",
 
 
 			console.log("YOYOYO")
-			@$el.html(Templates.customerSection({}));
-			console.log(Templates.customerSection({}));
+			@$el.html(customerSectionTemplate({}));
+			console.log(customerSectionTemplate({}));
 
 			console.log("YOYOYO")
 
@@ -72,13 +73,13 @@ define(["vendor/backbone",
 			@$el.find(".customerInsertPanel .insertCustomerButton").button();
 			@customerUpdateView.realized();
 			@customerDeleteDialogView.realized();
-			
+
 			@populateTable();
 
 			window.setInterval(() =>
 				@populateTable();
 			20000);
-			
+
 		populateTable: () ->
 
 			$.get("users_by_last_name", {}, (data) =>
@@ -87,8 +88,8 @@ define(["vendor/backbone",
 				header = @$el.find(".customerTable table tr")[0];
 				table.html("");
 				table.append(header);
-				for row in data.rows	
-					table.append(Templates.customerRowTemplate(row.value));	
+				for row in data.rows
+					table.append(customerRowTemplate(row.value));
 
 				@$el.find(".customerTable table button").button();
 			);
@@ -116,10 +117,7 @@ define(["vendor/backbone",
 
 			@customerDeleteDialogView.confirmDelete(deleteAction);
 
-			
-
 		insertCustomerEvent: (event) ->
-
 			@customerUpdateModel.set("first_name", "");
 			@customerUpdateModel.set("last_name", "");
 			@customerUpdateModel.set("nick_name", "");
@@ -130,4 +128,3 @@ define(["vendor/backbone",
 			@customerUpdateModel.set("couchrev", "");
 			@customerUpdateView.toggleHidden(true, true);
 	)
-)
