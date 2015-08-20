@@ -3,9 +3,7 @@
 *###
 backbone = require("backbone");
 
-module.exports = () ->
-
-	customerDeleteDialogModel = backbone.Model.extend(
+module.exports = backbone.Model.extend(
 
 		###*
 		* @method initialize

@@ -12,9 +12,7 @@ customerSectionTemplate = require("plugins/CustomerSection/view/res/templates/cu
 customerRowTemplate = require("plugins/CustomerSection/view/res/templates/customerRowTemplate.html");
 css = require("plugins/CustomerSection/view/res/css/customerSection.css");
 
-module.exports = () ->
-
-	backbone.View.extend(
+module.exports = backbone.View.extend(
 
 		className: "customerSection widthTransition",
 

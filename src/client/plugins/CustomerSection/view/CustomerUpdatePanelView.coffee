@@ -7,9 +7,8 @@ backbone = require("backbone");
 customerUpdatePanelTemplate = require("plugins/CustomerSection/view/res/templates/customerUpdatePanel.html");
 css = require("plugins/CustomerSection/view/res/css/customerUpdatePanel.css");
 
-module.exports = () ->
+module.exports = 	backbone.View.extend(
 
-	backbone.View.extend(
 		className: "customerUpdatePanel pressedborder box_shadow",
 		id: "draggable",
 

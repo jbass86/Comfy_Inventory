@@ -3,10 +3,7 @@
 *###
 backbone = require("backbone");
 
-module.exports = () ->
-
-	customerSectionModel = backbone.Model.extend(
-
+module.exports = backbone.Model.extend(
 
 		###*
 		* initialize a new model, will automatically initialize a new

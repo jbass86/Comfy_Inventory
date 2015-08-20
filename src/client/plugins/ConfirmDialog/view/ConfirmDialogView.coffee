@@ -6,9 +6,7 @@ backbone = require("backbone");
 confirmDialogTemplate = require("plugins/ConfirmDialog/view/res/templates/confirmDialog.html");
 css = require("plugins/ConfirmDialog/view/res/css/confirmDialog.css");
 
-module.exports = () ->
-
-	backbone.View.extend(
+module.exports = backbone.View.extend(
 
 		className: "confirmDialog",
 

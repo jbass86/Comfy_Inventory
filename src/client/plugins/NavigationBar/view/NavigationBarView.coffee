@@ -9,9 +9,8 @@ customerSectionView = require("plugins/CustomerSection/view/CustomerSectionView.
 navigationBarTemplate = require("plugins/NavigationBar/view/res/templates/navigationBar.html");
 css = require("plugins/NavigationBar/view/res/css/navigationBar.css");
 
-module.exports = () ->
+module.exports = backbone.View.extend(
 
-	backbone.View.extend(
 		className: "navigationBar pressedBorder",
 
 		events: {"click .expandButton" : "toggleNavBarExpand", \

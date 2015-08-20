@@ -4,9 +4,7 @@ CustomerSectionBarView
 ###
 backbone = require("backbone");
 
-module.exports = () ->
-
-	backbone.View.extend(
+module.exports = backbone.View.extend(
 
 		className: "inventorySection widthTransition",
 

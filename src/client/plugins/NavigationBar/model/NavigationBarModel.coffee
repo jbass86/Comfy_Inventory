@@ -3,10 +3,7 @@
 *###
 backbone = require("backbone");
 
-module.exports = () ->
-
-	navigationBarModel = backbone.Model.extend(
-
+module.exports = backbone.Model.extend(
 
 		###*
 		* initialize a new model, will automatically initialize a new
