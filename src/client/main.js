@@ -3,19 +3,16 @@ $ = require("jquery");
 jquery = $;
 jQuery = $;
 require("jquery-ui");
-require("./stylesheets/vendor/jquery-ui.css");
-require("./stylesheets/vendor/jquery.ui.theme.css");
 require("bootstrap");
-require("./stylesheets/vendor/bootstrap.css");
-require("./stylesheets/vendor/bootstrap-theme.css");
+// require("./stylesheets/vendor/bootstrap.css");
+// require("./stylesheets/vendor/bootstrap-theme.css");
 
 var HeaderBarModel = require("./plugins/HeaderBar/model/HeaderBarModel.coffee");
 var HeaderBarView = require("./plugins/HeaderBar/view/HeaderBarView.coffee");
 var NavigationBarModel = require("./plugins/NavigationBar/model/NavigationBarModel.coffee");
 var NavigationBarView = require("./plugins/NavigationBar/view/NavigationBarView.coffee");
 
-var globalCSS = require("./stylesheets/global.css");
-var styleCSS = require("./stylesheets/style.css");
+var mainCSS = require("./stylesheets/main.css");
 
 
 $(function(){

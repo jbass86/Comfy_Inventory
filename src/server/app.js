@@ -13,6 +13,7 @@ var nano = require('nano')('http://localhost:5984');
 var app = express();
 
 app.use(express.static(__dirname + "/client/"));
+app.use(express.bodyParser());
 
 app.get('/', function(req, res) {
     res.render('index.html');

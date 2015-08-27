@@ -18,9 +18,9 @@
 
 	width: 20%;
 	height: 385px;
-	
+
 	z-index: 7;
-	
+
 	color: white;
 }
 
@@ -62,3 +62,6 @@
 	width: 20%;
 }
 
+.customerUpdatePanel input{
+	color: black;
+}

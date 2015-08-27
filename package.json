@@ -20,13 +20,17 @@
             "html"
           ]
         }
-      ]
+      ],
+      ["browserify-css", {"global": true}]
     ]
   },
   "devDependencies": {
+    "acorn": "^2.3.0",
     "backbone": "^1.2.1",
     "bootstrap": "^3.3.5",
     "browserify": "^11.0.1",
+    "browserify-css": "^0.6.1",
+    "cjs": "0.0.11",
     "coffeeify": "^1.1.0",
     "cssify": "^0.7.0",
     "del": "^1.2.1",

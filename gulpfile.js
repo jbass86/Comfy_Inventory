@@ -18,15 +18,32 @@ gulp.task('clean', function(cb){
 
 gulp.task('build-client', function(){
   browserify({
-        entries: ['./src/client/main.js'],
-        paths: ['./src/client/'],
-        debug: true})
+          entries: ['./src/client/main.js'],
+          paths: [ './node_modules/', './src/client/'],
+          debug: true,
+        })
+
+        .transform(require('browserify-css'), {
+       processRelativeUrl: function(relativeUrl) {
+
+            var array = relativeUrl.split('\\');
+
+           return "./images/" + array[array.length - 1];
+       }})
+
+
      .bundle()
      .pipe(source('client_blob.js'))
      .pipe(gulp.dest('./dist/client'));
 
   gulp.src('./src/client/index.html')
     .pipe(gulp.dest('dist/client'));
+
+  gulp.src('./node_modules/bootstrap/fonts/*')
+    .pipe(gulp.dest('dist/client/images'));
+
+    gulp.src('./node_modules/jquery-ui/themes/ui-darkness/images/*')
+      .pipe(gulp.dest('dist/client/images'));
 
   gulp.src('./src/client/images/*')
     .pipe(gulp.dest('dist/client/images'));
