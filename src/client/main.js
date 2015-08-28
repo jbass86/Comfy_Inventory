@@ -4,8 +4,6 @@ jquery = $;
 jQuery = $;
 require("jquery-ui");
 require("bootstrap");
-// require("./stylesheets/vendor/bootstrap.css");
-// require("./stylesheets/vendor/bootstrap-theme.css");
 
 var HeaderBarModel = require("./plugins/HeaderBar/model/HeaderBarModel.coffee");
 var HeaderBarView = require("./plugins/HeaderBar/view/HeaderBarView.coffee");
